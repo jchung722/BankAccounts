@@ -23,7 +23,7 @@ module Bank
     #Class method all
     def self.all
       @collection = []
-      CSV.open("accounts.csv", 'r').each do |line|
+      CSV.open("support/accounts.csv", 'r').each do |line|
         @collection << Account.new(line[0],line[1].to_f/100,line[2])
       end
       return @collection
@@ -32,7 +32,7 @@ module Bank
     #Class method find(id)
     def self.find(id)
       @match = 0
-      CSV.open("accounts.csv", 'r').each do |line|
+      CSV.open("support/accounts.csv", 'r').each do |line|
         if line[0] == id
           @match = Account.new(line[0], line[1].to_f/100, line[2])
         end
@@ -241,7 +241,7 @@ class Owner
   #Class method all
   def self.all
     @collection = []
-    CSV.open("owners.csv", 'r').each do |line|
+    CSV.open("support/owners.csv", 'r').each do |line|
       @collection << Owner.new(line[0], line[1], line[2], line[3], line[4], line[5])
     end
     return @collection
@@ -250,7 +250,7 @@ class Owner
   #Class method find(id)
   def self.find(id)
     @match = 0
-    CSV.open("owners.csv", 'r').each do |line|
+    CSV.open("support/owners.csv", 'r').each do |line|
       if line[0] == id
         @match = Owner.new(line[0], line[1], line[2], line[3], line[4], line[5])
       end
@@ -276,28 +276,28 @@ end
 # account2 = Bank::Account.new(102, 20, Time.now, customer1)
 # account2.withdraw(30) #=> should display warning
 # account2.withdraw(20) #=> should withdraw properly; balance = 0
-#
+
 # #Arthur opens up a third account with a negative balance
 # account3 = Bank::Account.new(103, -1, Time.now, customer1) #=> should output argument error.
 
 #######----->>>>CODE TO ACCESS CSV FILES(KEEP UNCOMMENTED FOR WAVES 2 + 3 CODES)<<<<<-----#######
-csv = CSV.read("accounts.csv")
+csv = CSV.read("support/accounts.csv")
 id = csv[0][0]
 balance = csv[0][1].to_f/100
 date = csv[0][2]
 
 #######------>>>>WAVE 2 TEST CODES<<<------#######
 
-# customer2 = Owner.new("1", "Read", "Dora Winifred", "123 Library Lane", "Elmwood City", "Massachusetts")
-# account = Bank::Account.new(id, balance, date, customer2)
-# puts account.id
-# puts account.balance
-# puts account.create_date
-# puts Bank::Account.all
-# puts "Your match is #{Bank::Account.find("1215")}"
-#
-# puts Owner.all
-# puts "Your match is #{Owner.find("15")}"
+customer2 = Owner.new("1", "Read", "Dora Winifred", "123 Library Lane", "Elmwood City", "Massachusetts")
+account = Bank::Account.new(id, balance, date, customer2)
+puts account.id
+puts account.balance
+puts account.create_date
+puts Bank::Account.all
+puts "Your match is #{Bank::Account.find("1215")}"
+
+puts Owner.all
+puts "Your match is #{Owner.find("15")}"
 
 
 #######------>>>>>>WAVE 3 TEST CODES<<<<<<-----#########
